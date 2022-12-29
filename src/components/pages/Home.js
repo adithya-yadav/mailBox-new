@@ -1,55 +1,62 @@
-import { EditorState } from "draft-js";
-import { Fragment, useRef, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useDispatch } from "react-redux";
-import { sentMailToFirebase } from "../apis/api";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
+import Message from "../Ui/Message";
 import classes from "./Home.module.css";
 
 const Home = () => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-  const textMailRef = useRef();
-  const mailIdRef = useRef()
-  const dispatch = useDispatch()
-
-  const sendMailHandler = () => {
-    const mailSenderId = localStorage.getItem("email")
-    const mailResiverId = mailIdRef.current.value;
-    const textMail = textMailRef.current.value;
-    const editorText = editorState.getCurrentContent().getPlainText();
-    const mail = {
-        mailSenderId,
-        mailResiverId,
-        textMail,
-        editorText
-    }
-    sentMailToFirebase(mail,dispatch)
-  };
-  const deleteMailHandler = ()=>{
-    mailIdRef.current.value = ""
-    textMailRef.current.value = ""
-    setEditorState("")
-  }
+  const selectInbox = useSelector((state) => state.mail.inBox);
+  const messages = selectInbox.map((message) => {
+    return (
+      <Message
+        key={message.id}
+        mailSenderId={message.mailSenderId}
+        resiveId={message.resiveId}
+        textMail={message.textMail}
+        editorText={message.editorText}
+      />
+    );
+  });
   return (
     <Fragment>
-      <div className={classes.center}>
-        <div className="d-flex">
-          <span className="mt-3 text-muted ">To</span>
-          <input ref={mailIdRef} type="text" className="w-100" />
-        </div>
-        <input ref={textMailRef} type="text" placeholder="Text mail" />
-        <Editor
-          editorClassName={classes.editor}
-          editorState={editorState}
-          onEditorStateChange={setEditorState}
+      <div className={classes.header}>
+        <h2>S❗Mail</h2>
+        <input
+          type="text"
+          placeholder="Find messages,documents,photos or people"
         />
-        <div className={classes.footer_field}>
-          <button className="btn btn-primary px-5" onClick={sendMailHandler}>
-            Send
-          </button>
-          <button className="border-0 bg-white me-3" onClick={deleteMailHandler}>🗑</button>
+        <button>🔍</button>
+      </div>
+      <div className={classes.center}>
+        <section>
+          <button className="bg-primary text-white">Compose</button>
+          <p>Inbox</p>
+          <p>Starred</p>
+          <p>Drafts</p>
+          <p>Sent</p>
+          <p>Archive</p>
+          <p>Spam</p>
+          <p>Deleted Items</p>
+
+          <p>Views Hide</p>
+          <p>Photos</p>
+          <p>Document</p>
+          <p>Subscriptions</p>
+          <p>Deals</p>
+          <p>Travel</p>
+
+          <p>Folders Hide</p>
+          <p>Folder1</p>
+
+          <p>+ New folder</p>
+        </section>
+        <div className={classes.view_field}>
+          <div className={classes.view_header}>
+            <p>Archive</p>
+            <p>Move</p>
+            <p>Delete</p>
+            <p>Spam</p>
+          </div>
+          <div className={classes.messages}>{messages}</div>
         </div>
       </div>
     </Fragment>

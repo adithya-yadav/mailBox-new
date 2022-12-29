@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import LoginSignup from "./LoginSignup./LoginSignup";
 import Home from "./pages/Home";
+import Send from "./pages/Send";
 
 
 const Nav = () => {
@@ -11,8 +12,11 @@ const Nav = () => {
     <Fragment>
       {isLogin && (
         <>
+        <Route path="/Send">
+          <Send />
+        </Route>
         <Route path="/Home">
-          <Home />
+          <Home/>
         </Route>
         <Route path="*">
         <Redirect to="/Home"/>

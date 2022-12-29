@@ -1,35 +1,49 @@
-/* "d-flex flex-column mx-3 gx-2 mt-4" */
-
-.center{
+.header{
     display: flex;
-    flex-direction: column;
-    margin: 2rem ;
+    width: 100vw;
+    background-color:rgb(158, 147, 240);
+    padding: 0.7rem ;
 }
-.center input{
-    padding:0.7rem ;
-    margin: 0.2rem 0;
-    border: none;
-    border-bottom: 1px solid silver;
+.header h2{
+    color: rgb(240, 238, 247);
+    margin: 0.5rem 5%;
 }
-.center textarea{
-    margin-top: 1rem;
-    border: none;
-    width: 100%;
-    height: 70vh;
-    resize: none;
+.header input{
+    width: 60%;
 }
-.center textarea:focus,.center input:focus{
-    outline: none;
+.header button{
+    background-color: rgb(184, 177, 238);
+    width: 7%;
+}
+.center {
+    display: flex;
+}
+.center section{
+    background-color:rgb(247, 244, 241);
+    width: 20%;
+}
+.center section p{
+    margin: 0.5rem;
+    padding: 0.3rem 0.5rem;
+}
+.center section button{
+    margin: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    width: 90%; 
 }
 
-.center .footer_field{
-    border-top: 1px solid silver;
-    padding:0.7rem ;
+.center .view_field{
+    width: 80%;
+    background-color: white;
+}
+.center .view_field .view_header{
+    margin: 0.5rem 0.8rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 3%;
-    justify-content: space-between;
+    justify-content: space-around;
+    color:lightgray;
 }
-.center .editor{
-    height: 60vh;
+.center .view_field .messages{
+    
 }
+
+

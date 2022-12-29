@@ -4,19 +4,44 @@ import { mailActions } from "../store/MailStore";
 const url = "https://adddetails-2dc5d-default-rtdb.firebaseio.com/";
 const webApiKey = "AIzaSyDOrZEaIdE5JVsMsQmrJRijh7X9HpgCeHE";
 
+let senderEmail = localStorage.getItem("email")
+if(senderEmail){
+ senderEmail = localStorage.getItem('email').replace(".","").replace(".","").replace("@","")
+}
 
 export const sentMailToFirebase = async (mail, dispatch) => {
+    let sendid;
   try {
-    const response = await fetch(`${url}mails.json`, {
+    const response = await fetch(`${url}${senderEmail}/send.json`, {
       method: "POST",
       body: JSON.stringify(mail),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
     const data = await response.json();
-    console.log(data);
+    if (response.ok) {
+        sendid = data.name
+        mail["id"] = sendid
+      dispatch(mailActions.sendMail(mail));
+    } else {
+      throw new Error(data.error.message);
+    }
+  } catch (error) {
+    console.log(error.message);
+    alert(error.message);
+  }
+  const resiverMail = mail.mailResiverId.replace(".","").replace(".","").replace("@","")
+  try {
+    const response = await fetch(`${url}${resiverMail}/resive/${sendid}.json`, {
+      method: "POST",
+      body: JSON.stringify(mail),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
     if (response.ok) {
       dispatch(mailActions.sendMail(mail));
     } else {
@@ -56,6 +81,7 @@ export async function loginorSigninToFirebase(
     if (response.ok) {
       if (isLoginPage) {
         localStorage.setItem("token", data.idToken);
+        localStorage.setItem("email", data.email);
         dispatch(authActions.login());
       } else{
         try {
@@ -82,3 +108,25 @@ export async function loginorSigninToFirebase(
     alert(error.message);
   }
 }
+
+export const getDataFromFirebase = async(dispatch)=>{
+    try{
+      const response = await fetch(`${url}${senderEmail}.json`)
+    const data = await response.json()
+      if(response.ok){
+        for(let resiveKey in data.resive){
+            let inbox = Object.values(data.resive[resiveKey])[0]
+            inbox["resiveId"] = resiveKey
+            dispatch(mailActions.inBoxMail(inbox))
+        }
+        for(let sendKey in data.send){
+            dispatch(mailActions.sendMail(data.send[sendKey]))
+        }
+      }else{
+        throw new Error(data.error.message)
+      }
+    }catch(error){
+    //   alert(error.message)
+    console.log(error.message)
+    }
+  }

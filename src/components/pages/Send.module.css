@@ -1,0 +1,35 @@
+/* "d-flex flex-column mx-3 gx-2 mt-4" */
+
+.center{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem ;
+}
+.center input{
+    padding:0.7rem ;
+    margin: 0.2rem 0;
+    border: none;
+    border-bottom: 1px solid silver;
+}
+.center textarea{
+    margin-top: 1rem;
+    border: none;
+    width: 100%;
+    height: 70vh;
+    resize: none;
+}
+.center textarea:focus,.center input:focus{
+    outline: none;
+}
+
+.center .footer_field{
+    border-top: 1px solid silver;
+    padding:0.7rem ;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    justify-content: space-between;
+}
+.center .editor{
+    height: 60vh;
+}
