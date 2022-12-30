@@ -1,0 +1,64 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.center .footer_field {
+  border-top: 1px solid silver;
+  padding: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%;
+  justify-content: space-between;
+}
+.center .editor {
+  height: 20vh;
+}
+.view_header {
+  margin: 0.8rem 0 0.8rem 0;
+  display: flex;
+  justify-content: space-around;
+  color: gray;
+  border-bottom: 1px solid silver;
+}
+.mail_text {
+  margin: 1rem 0;
+  text-align: start;
+  border-bottom: 1px solid silver;
+  height: 5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 0.8rem;
+}
+.mail_text h6 {
+  display: inline;
+}
+.mail {
+  padding-left: 0.8rem;
+  height: 30%;
+}
+.mail .mail_id {
+  height: 20%;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.mail .mail_message {
+  height: 80%;
+  overflow: scroll;
+}
+
+.dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: lightgray;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 0.5rem 0.1rem 0;
+}

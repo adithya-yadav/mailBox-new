@@ -1,0 +1,7 @@
+
+.view_header{
+    margin: 0.5rem 0.8rem;
+    display: flex;
+    justify-content: space-around;
+    color:lightgray;
+}
