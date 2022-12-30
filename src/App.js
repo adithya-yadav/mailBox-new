@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataFromFirebase } from "./components/apis/api";
+import { getDataFromFirebase, resiveMailsformFirebase } from "./components/apis/api";
 import Nav from "./components/Nav";
-
-let isInitial = true
 
 function App() {
   const email = localStorage.getItem('email')
@@ -13,7 +11,14 @@ function App() {
   useEffect(()=>{
     dispatch(getDataFromFirebase())
   },[email])
-
+  useEffect(()=>{
+    const intervel = setInterval(()=>{
+      resiveMailsformFirebase(dispatch)
+    },2000)
+    return()=>{
+      clearInterval(intervel)
+    }
+  },[email])
   return (
     <div>
       <Nav/>

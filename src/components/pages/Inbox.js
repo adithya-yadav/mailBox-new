@@ -13,7 +13,7 @@ const Inbox = () => {
           key={ind}
           path="/Home/Inbox"
           id={message.id}
-          mailid={message.mailResiverId}
+          mailid={message.mailSenderId}
           mailSenderId={message.mailSenderId}
           resiveId={message.mailResiverId}
           textMail={message.textMail}
@@ -31,7 +31,7 @@ const Inbox = () => {
           <p>Spam</p>
         </div>
         <div className={classes.messages}>{messages}</div>
-        {!selectInbox && <NoMessage />}
+        {!selectInbox.length && <NoMessage />}
       </Fragment>
     );
 };

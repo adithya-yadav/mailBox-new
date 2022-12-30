@@ -189,3 +189,17 @@ export const deleteMailInFirebase = async(id,path,dispatch)=>{
     alert(error.message)
   }
 }
+
+export const resiveMailsformFirebase = async(dispatch)=>{
+  try{
+    const response = await fetch(`${url}${senderEmail}/resive.json`)
+    const data = await response.json()
+    if(response.ok){
+      dispatch(mailActions.rePlace({resivemailsInevery2Secound:data}))
+    }else{
+      throw new Error(data.error.message)
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}
