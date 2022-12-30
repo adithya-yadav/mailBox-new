@@ -135,3 +135,57 @@ export const getDataFromFirebase = () => {
     }
   };
 };
+
+export const readMailinfirebase = async(id,dispatch)=>{
+  try{
+    const response = await fetch(`${url}${senderEmail}/resive/${id}.json`)
+    const data =await response.json()
+    if(response.ok){
+      const key = Object.keys(data)[0]
+      const value = Object.values(data)[0]
+      value["readMail"]=true
+      const response = await fetch(`${url}${senderEmail}/resive/${id}/${key}.json`,{
+        method:'PUT',
+        body:JSON.stringify(value),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+      const newdata = await response.json()
+      if(response.ok){
+        dispatch(mailActions.mailread(newdata.id))
+      }else{
+        throw new Error(newdata.error.message)
+      }
+    }else{
+      throw new Error(data.error.message)
+    }
+  }catch(error){
+    alert(error.message)
+  }
+}
+
+export const deleteMailInFirebase = async(id,path,dispatch)=>{
+  let mailpath;
+  if(path==="/Home/Inbox"){
+    mailpath="resive"
+  }else{
+    mailpath="sent"
+  }
+  try{
+    const response =await fetch(`${url}${senderEmail}/${mailpath}/${id}.json`,{
+      method:'DELETE',
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+    const data = await response.json()
+    if(response.ok){
+      dispatch(mailActions.deleteMail({id:id,path:path}))
+    }else{
+      throw new Error(data.error.message)
+    }
+  }catch(error){
+    alert(error.message)
+  }
+}

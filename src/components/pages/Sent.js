@@ -12,6 +12,7 @@ const Sent = () => {
       <Message
         key={ind}
         path="/Home/Sent"
+        id={message.id}
         mailid={message.mailResiverId}
         mailSenderId={message.mailSenderId}
         resiveId={message.mailResiverId}
