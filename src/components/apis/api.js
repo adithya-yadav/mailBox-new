@@ -116,10 +116,10 @@ export async function loginorSigninToFirebase(
   }
 }
 
-export const getDataFromFirebase = () => {
+export const getDataFromFirebase = (emailId) => {
   return async (dispatch) => {
     const fetchData = async () => {
-      const response = await fetch(`${url}${senderEmail}.json`);
+      const response = await fetch(`${url}${emailId}.json`);
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error.message);
@@ -128,6 +128,7 @@ export const getDataFromFirebase = () => {
     };
     try {
       const fetchdata = await fetchData();
+      console.log(fetchdata)
       dispatch(mailActions.rePlace(fetchdata));
     } catch (error) {
       //   alert(error.message)
@@ -153,6 +154,7 @@ export const readMailinfirebase = async(id,dispatch)=>{
       })
       const newdata = await response.json()
       if(response.ok){
+        console.log(newdata)
         dispatch(mailActions.mailread(newdata.id))
       }else{
         throw new Error(newdata.error.message)
@@ -161,7 +163,7 @@ export const readMailinfirebase = async(id,dispatch)=>{
       throw new Error(data.error.message)
     }
   }catch(error){
-    alert(error.message)
+    // alert(error.message)
   }
 }
 
@@ -195,6 +197,7 @@ export const resiveMailsformFirebase = async(dispatch)=>{
     const response = await fetch(`${url}${senderEmail}/resive.json`)
     const data = await response.json()
     if(response.ok){
+      // return data
       dispatch(mailActions.rePlace({resivemailsInevery2Secound:data}))
     }else{
       throw new Error(data.error.message)

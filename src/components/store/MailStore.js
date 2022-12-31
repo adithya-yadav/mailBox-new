@@ -73,6 +73,12 @@ const mailSlice = createSlice({
         state.inBox.splice(sentInd, 1);
       }
     },
+    onlogout(state){
+        state.sent=[]
+        state.inBox=[]
+        state.inboxIndex=0
+        state.mailDetails=null
+    },
   },
 });
 

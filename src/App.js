@@ -2,23 +2,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataFromFirebase, resiveMailsformFirebase } from "./components/apis/api";
 import Nav from "./components/Nav";
+import useReload from "./CustomHooks/use-Reload";
 
 function App() {
-  const email = localStorage.getItem('email')
   const selectMailbox = useSelector(state=>state.mail)
+  const isLogin = useSelector(state=>state.auth.isLogin)
+  const emailId = localStorage.getItem('email')
   console.log(selectMailbox)
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(getDataFromFirebase())
-  },[email])
-  useEffect(()=>{
-    const intervel = setInterval(()=>{
-      resiveMailsformFirebase(dispatch)
-    },2000)
-    return()=>{
-      clearInterval(intervel)
-    }
-  },[email])
+
+  useReload(isLogin,emailId)
+  
   return (
     <div>
       <Nav/>

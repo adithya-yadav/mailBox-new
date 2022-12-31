@@ -10,15 +10,7 @@
   justify-content: center;
 }
 .message:hover{
-  display: flex;
-  margin: 0.2rem 0.5rem;
-  padding: 0.2rem 0;
-  background-color:aliceblue;
-  border: none;
-  width: 100%;
-  border-bottom: 1px solid silver;
-  align-items: center;
-  justify-content: center;
+ background-color: aliceblue;
 }
 
 .message input[type="checkbox"] {

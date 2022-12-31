@@ -4,17 +4,31 @@
     background-color:rgb(158, 147, 240);
     padding: 0.7rem ;
     margin: 0;
+    justify-content: space-between;
 }
 .header h2{
     color: rgb(240, 238, 247);
     margin: 0.5rem 5%;
+    width: 10%;
 }
-.header input{
+.header .search{
     width: 60%;
 }
-.header button{
+.header .search input{
+    width: 90%;
+    height: 100%;
+}
+.header .search_icon{
     background-color: rgb(184, 177, 238);
-    width: 7%;
+    width: 10%;
+    height: 100%;
+}
+.header .profile_icon{
+    background-color:white;
+    border: 0ch;
+    padding: 0% 0.9rem;
+    border-radius: 60%;
+    margin-right: 1rem;
 }
 .center {
     display: flex;
@@ -52,5 +66,38 @@
     background-color: white;
 }
 
-
-
+.profile_field{
+    position: absolute;
+    top: 2rem;
+    right:0;
+    z-index: 99;
+    background-color:transparent;
+    padding: 3rem;
+}
+.profile_field .profile_email{
+    background-color: rgb(208, 202, 241);
+    padding:2rem;
+    border: 1px solid silver;
+    display: flex;
+    color: rgb(70, 1, 70);
+    font-size:larger;
+}
+.profile_field .profile_account{
+    background-color:white;
+    padding: 1rem;
+    border: 1px solid silver;
+    text-align: center;
+    font-weight: 500;
+}
+.profile_field .profile_signout{
+    background-color:white;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid silver;
+}
+.profile_field .profile_signout button{
+    background-color: transparent;
+    border: 0ch;
+    font-weight: 700;
+    font-size:large;
+}

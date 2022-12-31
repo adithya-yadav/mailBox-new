@@ -6,7 +6,6 @@ import classes from "./Inbox.module.css";
 
 const Sent = () => {
   const selectSent = useSelector((state) => state.mail.sent);
-  console.log(selectSent)
   const messages = selectSent.map((message, ind) => {
   
     return (

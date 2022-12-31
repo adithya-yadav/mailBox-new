@@ -1,6 +1,8 @@
-import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { Fragment, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, useHistory } from "react-router-dom";
+import { authActions } from "../store/Auth";
+import { mailActions } from "../store/MailStore";
 import MailMessage from "../Ui/MailMessage";
 import Compose from "./Compose";
 import classes from "./Home.module.css";
@@ -10,20 +12,40 @@ import Sent from "./Sent";
 const Home = () => {
   const selectResiveIndex = useSelector((state) => state.mail.inboxIndex);
   const selectMailDetails = useSelector((state) => state.mail.mailDetails);
+  const selectemail = localStorage.getItem('email')
+  const [profile, setProfile] = useState(false);
+  const dispatch = useDispatch()
   const history = useHistory();
   const composeHandler = () => {
     history.push("/Home/Compose");
   };
-  const mailMessages = () => {};
+  const profileHandler = () => {};
+  const mouseEnterProfileHandler = ()=>{
+    setProfile(true)
+  }
+  const mouseLeaveProfileHandler = ()=>{
+    setProfile(false)
+  }
+  const signoutHandler = ()=>{
+    localStorage.removeItem('email')
+    localStorage.removeItem('token')
+    dispatch(authActions.logout())
+    dispatch(mailActions.onlogout())
+  }
   return (
     <Fragment>
       <div className={classes.header}>
         <h2>S❕Mail</h2>
-        <input
-          type="text"
-          placeholder="Find messages,documents,photos or people"
-        />
-        <button>🔍</button>
+        <div className={classes.search}>
+          <input
+            type="text"
+            placeholder="Find messages,documents,photos or people"
+          />
+          <button className={classes.search_icon}>🔍</button>
+        </div>
+        <button className={classes.profile_icon} onClick={profileHandler} onMouseEnter={mouseEnterProfileHandler} onMouseLeave={mouseLeaveProfileHandler}>
+          👤
+        </button>
       </div>
       <div className={classes.center}>
         <section>
@@ -115,6 +137,13 @@ const Home = () => {
           )}
         </div>
       </div>
+      {profile && (
+        <div className={classes.profile_field} onMouseEnter={mouseEnterProfileHandler} onMouseLeave={mouseLeaveProfileHandler}>
+          <div className={classes.profile_email}><div className="me-2">👤</div><span>{selectemail}</span></div>
+          <div className={classes.profile_account}>+ Add or Manage Account</div>
+          <div className={classes.profile_signout}><button onClick={signoutHandler}>Sign out</button></div>
+        </div>
+      )}
     </Fragment>
   );
 };
